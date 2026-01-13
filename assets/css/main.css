@@ -1929,188 +1929,103 @@ section,
 /*--------------------------------------------------------------
 # Team Section
 --------------------------------------------------------------*/
-.team .row {
-  align-items: center;
+.team .team-slider {
+  overflow: hidden;
+  margin-bottom: 24px;
 }
 
-@media (max-width: 991px) {
-  .team .team-intro {
-    margin-bottom: 40px;
-  }
-}
-
-.team .team-intro .team-intro-content {
-  height: 100%;
+.team .slider-nav {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  padding: 20px;
+  gap: 12px;
 }
 
-.team .team-intro .team-intro-content h2 {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  position: relative;
-  padding-bottom: 15px;
-}
-
-.team .team-intro .team-intro-content h2:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background-color: var(--accent-color);
-}
-
-.team .team-intro .team-intro-content p {
-  margin-bottom: 30px;
-  font-size: 16px;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-}
-
-.team .team-intro .team-navigation {
-  display: flex;
-  gap: 10px;
-}
-
-.team .team-intro .team-navigation button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: transparent;
-  border: 2px solid var(--accent-color);
-  color: var(--accent-color);
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.team .team-intro .team-navigation button:hover {
-  background-color: var(--accent-color);
-  color: var(--contrast-color);
-}
-
-.team .member-card {
-  display: flex;
-  flex-direction: column;
+.team .slider-nav .swiper-button-prev,
+.team .slider-nav .swiper-button-next {
+  position: static;
+  width: 40px;
+  height: 40px;
+  margin: 0;
   background-color: var(--surface-color);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  height: 100%;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  border-radius: 50%;
+  transition: 0.3s;
 }
 
-.team .member-card:hover {
-  transform: translateY(-10px);
-}
-
-.team .member-card:hover .member-image:before {
-  opacity: 0.7;
-}
-
-.team .member-card .member-image {
-  position: relative;
-  overflow: hidden;
-  height: 240px;
-}
-
-.team .member-card .member-image:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 100%);
-  opacity: 0.4;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.team .member-card .member-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.team .member-card .member-image:hover img {
-  transform: scale(1.05);
-}
-
-.team .member-card .member-info {
-  padding: 25px;
-  position: relative;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.team .member-card .member-info h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.team .member-card .member-info span {
-  color: var(--accent-color);
+.team .slider-nav .swiper-button-prev::after,
+.team .slider-nav .swiper-button-next::after {
   font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 15px;
+  color: var(--default-color);
 }
 
-.team .member-card .member-social {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-.team .member-card .member-social a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
-  color: var(--accent-color);
-  border-radius: 6px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.team .member-card .member-social a:hover {
+.team .slider-nav .swiper-button-prev:hover,
+.team .slider-nav .swiper-button-next:hover {
   background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.team .slider-nav .swiper-button-prev:hover::after,
+.team .slider-nav .swiper-button-next:hover::after {
   color: var(--contrast-color);
-  transform: translateY(-3px);
 }
 
-.team .member-card .member-bio p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-  margin-bottom: 0;
+.team .member .member-img {
+  position: relative;
+  margin-bottom: 16px;
+  overflow: hidden;
+  border-radius: 20px;
 }
 
-.team .team-carousel-wrap {
-  overflow-x: hidden;
-  padding: 30px 20px;
+.team .member .member-img img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
 
-.team .team-carousel {
-  overflow: visible;
+.team .member .member-img .social {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
 }
 
-.team .team-carousel .swiper-slide {
-  height: auto;
+.team .member .member-img .social a {
+  color: var(--contrast-color);
+  font-size: 20px;
+  transition: 0.3s;
 }
 
+.team .member .member-img .social a:hover {
+  color: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.team .member .member-img:hover .social {
+  opacity: 1;
+  visibility: visible;
+}
+
+.team .member .member-info h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--heading-color);
+}
+
+.team .member .member-info span {
+  font-size: 15px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+.team .swiper-wrapper {
+  height: auto !important;
+}
 /*--------------------------------------------------------------
 # Contact Section
 --------------------------------------------------------------*/

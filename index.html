@@ -716,6 +716,7 @@
 
     <!-- Team Section -->
     <section id="team" class="team section">
+
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Conseil d'administartion</h2>
@@ -724,76 +725,148 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row">
-          <div class="col-lg-4 team-intro" data-aos="fade-right" data-aos-delay="200">
-            <div class="team-intro-content">
-              <h2>Conseil d’administration</h2>
-              <p>L’ASIMM est une association à but non lucratif animée par des bénévoles. Le conseil d’administration est élu à l’assemblée annuelle et assure la gouvernance et l’organisation des activités.</p>
-              <div class="team-navigation">
-                <button class="team-nav-prev"><i class="bi bi-arrow-left"></i></button>
-                <button class="team-nav-next"><i class="bi bi-arrow-right"></i></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-8 team-carousel-wrap">
-            <div class="team-carousel swiper init-swiper">
-              <script type="application/json" class="swiper-config">
-                {
-                  "loop": true,
-                  "speed": 800,
-                  "autoplay": {
-                    "delay": 5000
-                  },
+        <div class="team-slider swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 4,
+              "spaceBetween": 24,
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
+              "breakpoints": {
+                "320": {
                   "slidesPerView": 1,
-                  "spaceBetween": 20,
-                  "navigation": {
-                    "nextEl": ".team-nav-next",
-                    "prevEl": ".team-nav-prev"
-                  },
-                  "breakpoints": {
-                    "576": {
-                      "slidesPerView": 2,
-                      "spaceBetween": 20
-                    },
-                    "992": {
-                      "slidesPerView": 2,
-                      "spaceBetween": 30
-                    }
-                  }
+                  "spaceBetween": 16
+                },
+                "768": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 20
+                },
+                "1024": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 24
+                },
+                "1200": {
+                  "slidesPerView": 4,
+                  "spaceBetween": 24
                 }
-              </script>
-              <div class="swiper-wrapper">
+              }
+            }
+          </script>
 
-                <div class="swiper-slide">
-                  <div class="member-card">
-                    <div class="member-image">
-                      <img src="assets/img/asimm/Eric-BALANCA_Portrait.webp" class="img-fluid" alt="" loading="lazy">
-                    </div>
-                    <div class="member-info">
-                      <h3>Éric Balança</h3>
-                      <span>Président – ASIMM</span>
-                      <div class="member-social">
-                        <a href="#"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#"><i class="bi bi-facebook"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
-                      </div>
-                      <div class="member-bio">
-                        <p>Préside le conseil d’administration et soutient la mission de l’ASIMM : favoriser le partage de connaissances et renforcer les pratiques en sécurité de l’information.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- End slide item -->
-
-                <!-- End slide item -->
-
+          <div class="swiper-wrapper">
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/asimm/eric b.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
               </div>
-            </div>
+              <div class="member-info">
+                <h4>Éric Balança</h4>
+                <span>président</span>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/person/person-f-8.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Josiane Lemay</h4>
+                <span>Trésorière</span>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/person/person-m-6.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Lucas Rezaioff</h4>
+                <span>Secrétaire</span>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/person/person-f-4.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Mathilde de Gourmay</h4>
+                <span>Administratrice</span>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/person/person-m-12.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>David Senbel</h4>
+                <span>Administrateur</span>
+              </div>
+            </div><!-- End Team Member -->
+
+            <div class="swiper-slide member">
+              <div class="member-img">
+                <img src="assets/img/person/person-f-9.webp" class="img-fluid" alt="" loading="lazy">
+                <div class="social">
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Alain Bonsant</h4>
+                <span>Administrateur</span>
+              </div>
+            </div><!-- End Team Member -->
+
           </div>
+
+        </div>
+
+        <div class="slider-nav">
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
         </div>
 
       </div>
-    </section><!-- /Team Section -->
+
+    </section>
+    <!-- /Team Section -->
 
     <!-- Contact Section -->
     <section id="contact" class="contact section">
