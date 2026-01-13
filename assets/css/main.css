@@ -3066,9 +3066,7 @@ section,
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
-}
+
 
 /*--------------------------------------------------------------
 # Pricing Section
@@ -3367,6 +3365,31 @@ section,
     gap: 10px;
   }
 }
+/* ---------- NEW: switch between Individuel (2 cards) and Partenariat (1 card) ---------- */
+
+/* Center the grid so the single card sits in the middle */
+#pricing .row {
+  justify-content: center;
+}
+
+/* Default (Individuel): show ONLY individual cards */
+#pricing .pricing-partner {
+  display: none;
+}
+#pricing .pricing-individual {
+  display: block;
+}
+
+/* Toggle ON (Partenariat): show ONLY partner card */
+@supports (selector(:has(*))) {
+  #pricing .pricing-toggle-container:has(.switch input:checked) ~ .row .pricing-individual {
+    display: none;
+  }
+  #pricing .pricing-toggle-container:has(.switch input:checked) ~ .row .pricing-partner {
+    display: block;
+  }
+}
+
 
 /*--------------------------------------------------------------
 # Call To Action Section
