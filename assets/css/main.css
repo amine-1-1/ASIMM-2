@@ -439,150 +439,62 @@ h6 {
 # Global Footer
 --------------------------------------------------------------*/
 .footer {
-  background-color: var(--background-color);
   color: var(--default-color);
-  padding-top: 60px;
+  background-color: var(--background-color);
   font-size: 14px;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 80%);
+  padding: 40px 0 0 0;
+  position: relative;
 }
 
-.footer a {
-  color: var(--default-color) !important;
-}
-
-.footer a:hover {
+.footer .icon {
   color: var(--accent-color);
+  margin-right: 15px;
+  font-size: 24px;
+  line-height: 0;
+}
+
+.footer h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.footer .address p {
+  margin-bottom: 0px;
+}
+
+.footer .social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 50%);
+  font-size: 16px;
+  color: color-mix(in srgb, var(--default-color), transparent 50%);
+  margin-right: 10px;
+  transition: 0.3s;
+}
+
+.footer .social-links a:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .footer .copyright {
-  margin-top: 50px;
-  position: relative;
-  padding: 30px 0;
-  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 80%);
+  padding: 25px 0;
+  border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
 }
 
-.footer .copyright p,
-.footer .copyright .credits {
-  margin: 2px 0;
+.footer .copyright p {
+  margin-bottom: 0;
 }
 
-.footer .btn-learn-more {
-  background-color: var(--accent-color);
-  border-radius: 30px;
-  padding: 8px 30px;
-  border: 2px solid transparent;
-  transition: 0.3s all ease-in-out;
-  font-size: 14px;
-  color: var(--contrast-color) !important;
+.footer .credits {
+  margin-top: 5px;
+  font-size: 13px;
 }
-
-.footer .btn-learn-more:hover {
-  border-color: var(--accent-color);
-  background-color: transparent;
-  color: var(--accent-color) !important;
-}
-
-.footer .widget .widget-heading {
-  font-size: 15px;
-  color: var(--heading-color);
-  margin-bottom: 20px;
-}
-
-.footer .widget ul li {
-  margin-bottom: 10px;
-  line-height: 1.5;
-}
-
-.footer .widget ul li a {
-  color: color-mix(in srgb, var(--heading-color), transparent 50%);
-}
-
-.footer .widget ul li a:hover {
-  text-decoration: none;
-  color: var(--heading-color);
-}
-
-.footer .widget .footer-blog-entry .date {
-  color: color-mix(in srgb, var(--default-color), transparent 50%);
-  font-size: 12px;
-}
-
-.footer .social-icons li {
-  display: inline-block;
-}
-
-.footer .social-icons li a {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  position: relative;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--default-color), transparent 90%);
-}
-
-.footer .social-icons li a span {
-  color: color-mix(in srgb, var(--heading-color), transparent 0%);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s all ease-in-out;
-}
-
-.footer .social-icons li a:hover {
-  background: var(--accent-color);
-}
-
-.footer .social-icons li a:hover span {
-  color: var(--contrast-color);
-}
-
-.footer .social-icons li:first-child a {
-  padding-left: 0;
-}
-
-.footer .footer-subscribe form {
-  position: relative;
-}
-
-.footer .footer-subscribe .form-control {
-  font-size: 14px;
-  height: 42px;
-  border: 2px solid color-mix(in srgb, var(--default-color), transparent 40%);
-  background: none;
-  color: var(--heading-color);
-  padding-right: 40px;
-}
-
-.footer .footer-subscribe .form-control:focus {
-  border-color: color-mix(in srgb, var(--default-color), transparent 10%);
-  box-shadow: none;
-}
-
-.footer .footer-subscribe .form-control::placeholder {
-  color: color-mix(in srgb, var(--heading-color), transparent 60%);
-}
-
-.footer .footer-subscribe .btn-link {
-  padding: 0;
-  margin: 0;
-  font-size: 1.5rem;
-  background-color: none;
-  border-color: none;
-  position: absolute;
-  line-height: 0;
-  color: color-mix(in srgb, var(--heading-color), transparent 20%);
-  top: 20px;
-  right: 10px;
-  transform: translateY(-50%) rotate(0deg);
-}
-
-.footer .footer-subscribe .btn-link:hover,
-.footer .footer-subscribe .btn-link:focus,
-.footer .footer-subscribe .btn-link:active {
-  text-decoration: none;
-}
-
 /*--------------------------------------------------------------
 # Scroll Top Button
 --------------------------------------------------------------*/

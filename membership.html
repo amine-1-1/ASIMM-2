@@ -255,115 +255,67 @@
 
   </main>
 
-  <footer id="footer" class="footer dark-background">
-    <div class="container">
-      <div class="row g-4">
+   <footer id="footer" class="footer dark-background">
 
-        <!-- About / Coordonnées -->
-        <div class="col-md-6 col-lg-3 mb-3 mb-md-0">
-          <div class="widget">
-            <h3 class="widget-heading">À propos de l’ASIMM</h3>
-            <p class="mb-4">
-              L’ASIMM est une association à but non lucratif dédiée à la sensibilisation, au partage et à la
-              collaboration en sécurité de l’information au Québec.
-            </p>
+  <div class="container">
+    <div class="row gy-3">
 
-            <p class="mb-0">
-              <strong>Adresse :</strong><br>
-              355 Rue Peel, Suites 203-208<br>
-              Montréal, QC, H3C 2G9<br><br>
-              <strong>Email :</strong>
-              <a href="mailto:info@asimm.org">info@asimm.org</a>
-            </p>
-
-            <p class="mb-0 mt-3">
-              <a href="#" class="btn-learn-more">Découvrir l’ASIMM</a>
-            </p>
-          </div>
+      <!-- Adresse -->
+      <div class="col-lg-3 col-md-6 d-flex">
+        <i class="bi bi-geo-alt icon"></i>
+        <div class="address">
+          <h4>Adresse</h4>
+          <p>355 Rue Peel, Suites 203-208</p>
+          <p>Montréal, QC, H3C 2G9</p>
         </div>
-
-        <!-- Navigation -->
-        <div class="col-md-6 col-lg-3 ps-lg-5 mb-3 mb-md-0">
-          <div class="widget">
-            <h3 class="widget-heading">Navigation</h3>
-
-            <ul class="list-unstyled float-start me-5">
-              <li><a href="#">Accueil</a></li>
-              <li><a href="#">Notre mission</a></li>
-              <li><a href="#">Activités</a></li>
-            </ul>
-
-            <ul class="list-unstyled float-start">
-              <li><a href="#">Ressources</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Nous contacter</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Ressources (remplace “Recent Posts”) -->
-        <div class="col-md-6 col-lg-3 pl-lg-5">
-          <div class="widget">
-            <h3 class="widget-heading">Ressources</h3>
-            <ul class="list-unstyled footer-blog-entry">
-              <li>
-                <span class="d-block date">Accès membre</span>
-                <a href="#">Photos &amp; présentations des événements passés</a>
-              </li>
-              <li>
-                <span class="d-block date">À consulter</span>
-                <a href="#">Articles &amp; liens utiles</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Connect + Subscribe -->
-        <div class="col-md-6 col-lg-3 pl-lg-5">
-          <div class="widget">
-            <h3 class="widget-heading">Connecter</h3>
-
-            <!-- Public link confirmed: LinkedIn -->
-            <ul class="list-unstyled social-icons light mb-3">
-              <li>
-                <a href="https://ca.linkedin.com/company/asimm" target="_blank" rel="noopener">
-                  <span class="bi bi-linkedin"></span>
-                </a>
-              </li>
-            </ul>
-
-            <p class="mb-0">
-              Pour partenariats, adhésion ou proposition de conférence :<br>
-              <a href="mailto:info@asimm.org">info@asimm.org</a>
-            </p>
-          </div>
-
-          <div class="widget">
-            <div class="footer-subscribe">
-              <h3 class="widget-heading">Rester informé</h3>
-              <form action="forms/newsletter.php" method="post" class="php-email-form">
-                <div class="mb-2">
-                  <input type="text" class="form-control" name="email" placeholder="Votre email">
-                  <button type="submit" class="btn btn-link" aria-label="S’abonner">
-                    <span class="bi bi-arrow-right"></span>
-                  </button>
-                </div>
-
-                <div class="loading">Envoi en cours…</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Votre demande a bien été envoyée. Merci.</div>
-              </form>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <div class="copyright d-flex flex-column flex-md-row align-items-center justify-content-md-between">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">ASIMM</strong> <span>— Tous droits réservés</span></p>
+      <!-- Contact -->
+      <div class="col-lg-3 col-md-6 d-flex">
+        <i class="bi bi-envelope icon"></i>
+        <div>
+          <h4>Contact</h4>
+          <p>
+            <strong>Email :</strong>
+            <a href="mailto:info@asimm.org">info@asimm.org</a><br>
+            <strong>Partenariats / Conférenciers :</strong>
+            <a href="mailto:info@asimm.org">info@asimm.org</a>
+          </p>
+        </div>
       </div>
+
+      <!-- Infos pratiques -->
+      <div class="col-lg-3 col-md-6 d-flex">
+        <i class="bi bi-calendar-event icon"></i>
+        <div>
+          <h4>Activités</h4>
+          <p>
+            <strong>Calendrier :</strong>
+            <a href="calendrier.html">Voir les événements</a><br>
+            <strong>Adhésion :</strong>
+            <a href="membership.html">Devenir membre</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Réseaux sociaux -->
+      <div class="col-lg-3 col-md-6">
+        <h4>Nous suivre</h4>
+        <div class="social-links d-flex">
+          <a href="https://ca.linkedin.com/company/asimm" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn ASIMM">
+            <i class="bi bi-linkedin"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
-  </footer>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">ASIMM</strong> <span>— Tous droits réservés</span></p>
+  </div>
+
+</footer>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
