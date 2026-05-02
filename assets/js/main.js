@@ -173,6 +173,8 @@
   let navmenulinks = document.querySelectorAll('.navmenu a');
 
   function navmenuScrollspy() {
+    let matched = false;
+
     navmenulinks.forEach(navmenulink => {
       if (!navmenulink.hash) return;
       let section = document.querySelector(navmenulink.hash);
@@ -181,10 +183,21 @@
       if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
         document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
         navmenulink.classList.add('active');
+        // Also highlight parent dropdown toggle when a child section is active
+        const parentDropdownA = navmenulink.closest('li')?.parentElement?.closest('li.dropdown')?.querySelector(':scope > a');
+        if (parentDropdownA) parentDropdownA.classList.add('active');
+        matched = true;
       } else {
         navmenulink.classList.remove('active');
       }
-    })
+    });
+
+    // When no hash section is in view, highlight the current page's nav link
+    if (!matched) {
+      const pageName = window.location.pathname.split('/').pop() || 'index.html';
+      const pageLink = document.querySelector(`.navmenu a[href="${pageName}"]`);
+      if (pageLink && !pageLink.hash) pageLink.classList.add('active');
+    }
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
