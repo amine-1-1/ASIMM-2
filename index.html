@@ -8,6 +8,7 @@
   <meta name="description" content="">
   <meta name="keywords" content="">
 
+<link rel="stylesheet" href="style.css">
 <!-- Favicons -->
 <link href="assets/img/tabimg.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -22,7 +23,7 @@
   "logo": "https://www.asimm.org/assets/img/tabimg.png"
 }
 </script>
-  
+
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -75,7 +76,7 @@
             </ul>
           </li>
 
-          <!-- Resources 
+          <!-- Resources
           <li class="dropdown">
             <a href="#"><span>Ressources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -92,10 +93,20 @@
 
           <!-- CTA: Membership -->
           <li><a href="membership.html">Devenir membre</a></li>
-        </ul>
 
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+        <div>
+    <li class="dropdown">
+        <a href="" data-bs-toggle="dropdown"><i class="bi bi-person-circle"></i></a>
+        <ul class="dropdown-menu">
+            <li><a href="http://127.0.0.1:8000/login">login</a></li>
+            <li><a href="register">register</a></li>
+        </ul>
+    </li>
+</div>
+  </ul>
+
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+  </nav>
 
     </div>
   </header>
@@ -223,14 +234,14 @@
               <h3>L’ASIMM : au service de la sécurité de l’information depuis 1981</h3>
               <p class="mb-4">
                 Fondée en 1981, l’ASIMM est une association à but non lucratif qui réunit des professionnels des secteurs public et privé
-                autour d’un intérêt commun : la sécurité de l’information. Notre communauté regroupe des profils variés : techniciens, spécialistes en gouvernance, 
+                autour d’un intérêt commun : la sécurité de l’information. Notre communauté regroupe des profils variés : techniciens, spécialistes en gouvernance,
                 experts en gestion des données, juristes et gestionnaires issus de multiples industries.
               </p>
 
               <p class="mb-4">
                 Notre mission est de promouvoir la sécurité de l’information au sein des organisations, notamment par la formation,
                 la sensibilisation aux risques et le partage de bonnes pratiques.
-              </p>              
+              </p>
                 <div class="progress-item">
                 <div class="d-flex justify-content-between">
                   <span class="progress-title">Ateliers &amp; conférences</span>
@@ -523,9 +534,9 @@
                 <span class="step-number">Étape 01</span>
                 <h3>Devenir membre</h3>
                 <p>Accédez au tarif membre et rejoignez une communauté de professionnels qui partagent un intérêt commun : la sécurité de l’information.</p>
-                
+
                 <a href="membership.html" class="read-more-btn">Devenir membre<i class="bi bi-arrow-right"></i></a>
-                
+
               </div>
             </div>
           </div><!-- End Step Item -->
@@ -632,7 +643,7 @@
                       <i class="bi bi-plus-lg faq-toggle"></i>
                     </h3>
                     <div class="faq-content">
-                      <p>L’association est gérée par un conseil d’Administration élu à l’assemblée annuelle pour des mandats de deux ans. 
+                      <p>L’association est gérée par un conseil d’Administration élu à l’assemblée annuelle pour des mandats de deux ans.
                         Les administrateurs sont bénévoles et se rencontrent mensuellement, sauf l’été.</p>
                     </div>
                   </div><!-- End FAQ Item -->
@@ -896,7 +907,7 @@
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="contact-main-wrapper">
           <div class="map-wrapper">
-            
+
             <iframe
                 src="https://maps.google.com/maps?q=355+Rue+Peel,+Montreal,+QC+H3C+2G9,+Canada&z=17&output=embed"
                 width="100%"
@@ -905,7 +916,7 @@
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">
-              </iframe>     
+              </iframe>
           </div>
 
           <div class="contact-content">
@@ -1059,7 +1070,7 @@
 </footer>
 
 
-      
+
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
