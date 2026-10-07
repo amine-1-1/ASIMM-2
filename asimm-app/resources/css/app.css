@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Admin styles */
+.admin-card{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.07),0 4px 16px rgba(0,0,0,.06);padding:24px 28px;margin-bottom:24px}
+.admin-card-title{font-size:1rem;font-weight:700;color:#0f172a}
+.admin-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:600}
+.admin-badge-green{background:rgba(34,197,94,.12);color:#15803d}
+.admin-badge-yellow{background:rgba(234,179,8,.13);color:#92400e}
+.admin-badge-dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block}
+.admin-btn{display:inline-flex;align-items:center;padding:9px 22px;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:opacity .15s}
+.admin-btn:hover{opacity:.85}
+.admin-btn-blue{background:#018880;color:#fff}
+.admin-btn-gray{background:#e2e8f0;color:#475569}
+.admin-btn-red{background:#dc2626;color:#fff}
+.admin-form-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.admin-form-actions{display:flex;gap:12px;padding-top:8px}
+.admin-label{display:block;font-size:.85rem;font-weight:600;color:#374151;margin-bottom:6px}
+.admin-input{width:100%;padding:9px 13px;border:1px solid #cbd5e1;border-radius:8px;font-size:.9rem;color:#0f172a;background:#f8fafc;outline:none;transition:border-color .15s;box-sizing:border-box}
+.admin-input:focus{border-color:#018880;background:#fff}
+.admin-checkbox{accent-color:#018880}
+.admin-pagination{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:24px;font-size:.88rem;color:#475569}
