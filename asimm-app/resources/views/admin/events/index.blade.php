@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+@extends('dashboard')
 
 @section('title', 'Événements')
 @section('subtitle', 'Aperçu des événements à venir.')
 
 @section('content')
-
+    @php $evenements = $evenements ?? collect(); @endphp
     @if ($evenements->isEmpty())
         <div class="admin-card" style="text-align: center; padding: 48px 24px; color: #94a3b8;">
             <i class="fa-regular fa-calendar-xmark" style="font-size: 2.5rem; margin-bottom: 16px; display: block;"></i>

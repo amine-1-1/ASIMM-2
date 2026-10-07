@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('dashboard')
 
 @section('title', 'Créer un événement')
 @section('subtitle', 'Ajout d\'un nouvel événement.')

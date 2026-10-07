@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('dashboard')
 
 @section('title', 'Modifier un événement')
 @section('subtitle', $evenement->title)
