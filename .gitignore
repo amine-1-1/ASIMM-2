@@ -1,1 +1,18 @@
-/.vscode
+/.vscode/
+/.history/
+
+# Local operating-system and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# Generated files and dependency directories
+*.log
+*.tmp
+*.bak
+/node_modules/
+/vendor/
+/dist/
+/build/

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'first_name', 'last_name','email', 'password'])]
-#[Hidden(['password','remmenber_token'])]
+#[Hidden(['password', 'remember_token'])]
 
 class User extends Authenticatable
 {
@@ -21,16 +22,6 @@ class User extends Authenticatable
             'last_login_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    // Chaque nouvel inscrit reçoit automatiquement le rôle "membre".
-    protected static function booted(): void
-    {
-        static::creating(function (User $user) {
-            if (! $user->role_id) {
-                $user->role_id = Role::where('name', 'membre')->value('id');
-            }
-        });
     }
 
     public function role(): BelongsTo

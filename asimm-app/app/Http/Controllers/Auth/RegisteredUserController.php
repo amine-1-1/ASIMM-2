@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -46,8 +45,6 @@ class RegisteredUserController extends Controller
             'password' => $validated['password'],
         ]);
 
-        $roleMembre = Role::where('name', 'Membre')->firstOrFail();
-        $user->role()->associate($roleMembre);
         $user->save();
 
         event(new Registered($user));

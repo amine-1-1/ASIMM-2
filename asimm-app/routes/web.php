@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('login', [AuthController::class, 'store'])
             ->middleware('throttle:5,1')
             ->name('login.store');
+
     });
 
     // Déconnexion admin
@@ -34,6 +36,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ->name('logout');
 
     // Pages protégées : il faut être connecté ET administrateur
+    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/events', [EventController::class, 'index'])->name('events.index');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+    Route::get('/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
     });
+});
 
 require __DIR__.'/auth.php';
