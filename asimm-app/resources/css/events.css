@@ -1,0 +1,213 @@
+/* ==========================================================
+   Cartes d'événements — reprend le style de calendrier.html
+   (main.css, section "Events 2")
+   ========================================================== */
+
+.asimm-events {
+    --accent-color: #f85d23;
+    --heading-color: #31221c;
+    --default-color: #52413a;
+    font-family: "Roboto", system-ui, sans-serif;
+}
+
+/* Bouton "Nouvel événement" (dans l'en-tête de la page) */
+.asimm-btn-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f85d23;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 9px 18px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.asimm-btn-new:hover {
+    background: #e14c14;
+}
+
+/* Carte */
+.asimm-events .event-item {
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.asimm-events .event-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Bloc orange avec le jour et le mois */
+.asimm-events .event-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    background: var(--accent-color);
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+.asimm-events .event-date .day {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.asimm-events .event-date .month {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+/* Événement passé : bloc gris */
+.asimm-events .event-item.is-past .event-date {
+    background: #9ca3af;
+}
+
+/* Contenu de la carte */
+.asimm-events .event-content {
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 0;
+}
+.asimm-events .event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+.asimm-events .event-label {
+    font-size: 1rem;
+    color: var(--default-color);
+}
+.asimm-events .event-label.past {
+    color: #9ca3af;
+}
+.asimm-events .badge-draft {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #fef3c7;
+    color: #92400e;
+}
+.asimm-events h3 {
+    font-family: "Raleway", sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin: 0.15rem 0 0.75rem;
+    line-height: 1.3;
+}
+
+/* Date, horaire et lieu */
+.asimm-events .event-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: color-mix(in srgb, var(--heading-color), transparent 30%);
+}
+.asimm-events .event-meta i {
+    margin-right: 0.35rem;
+}
+
+/* Description limitée à 3 lignes */
+.asimm-events .event-description {
+    margin-bottom: 1rem;
+    color: var(--default-color);
+    line-height: 1.6;
+    font-size: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Lien orange "S'inscrire →" */
+.asimm-events .btn-event {
+    display: inline-flex;
+    align-items: center;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+.asimm-events .btn-event i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+.asimm-events .btn-event:hover i {
+    transform: translateX(5px);
+}
+
+/* Actions admin (Modifier / Supprimer) */
+.asimm-events .event-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+.asimm-events .event-actions a,
+.asimm-events .event-actions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+}
+.asimm-events .event-actions a {
+    color: #374151;
+}
+.asimm-events .event-actions a:hover {
+    background: #f3f4f6;
+}
+.asimm-events .event-actions button {
+    color: #dc2626;
+    border-color: #fecaca;
+}
+.asimm-events .event-actions button:hover {
+    background: #fef2f2;
+}
+
+/* Message "Aucun événement" */
+.asimm-events .events-empty {
+    background: #fff;
+    border-radius: 8px;
+    padding: 2.5rem;
+    text-align: center;
+    color: #6b7280;
+}
+.asimm-events .events-empty i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+/* Sur téléphone : le bloc date passe au-dessus */
+@media (max-width: 576px) {
+    .asimm-events .event-item {
+        flex-direction: column;
+    }
+    .asimm-events .event-date {
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+    .asimm-events .event-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

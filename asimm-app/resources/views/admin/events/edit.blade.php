@@ -1,108 +1,102 @@
-@extends('dashboard')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Modifier « {{ $evenement->title }} »
+        </h2>
+    </x-slot>
 
-@section('title', 'Modifier un événement')
-@section('subtitle', $evenement->title)
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white shadow-sm sm:rounded-lg p-6">
+                <form method="POST" action="{{ route('admin.events.update', $evenement->id) }}">
+                    @csrf
+                    @method('PUT')
 
-@section('content')
+                    {{-- Titre --}}
+                    <div>
+                        <x-input-label for="title" value="Titre *" />
+                        <x-text-input id="title" name="title" class="block mt-1 w-full"
+                                      :value="old('title', $evenement->title)" required />
+                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                    </div>
 
-    <div class="admin-card">
-        <form method="POST" action="{{ route('admin.events.update', $evenement->id) }}" class="admin-form">
-            @csrf
-            @method('PUT')
+                    {{-- Dates --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <x-input-label for="start_date" value="Date de début *" />
+                            <x-text-input id="start_date" name="start_date" type="date" class="block mt-1 w-full"
+                                          :value="old('start_date', $evenement->start_date?->format('Y-m-d'))" required />
+                            <x-input-error :messages="$errors->get('start_date')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="end_date" value="Date de fin *" />
+                            <x-text-input id="end_date" name="end_date" type="date" class="block mt-1 w-full"
+                                          :value="old('end_date', $evenement->end_date?->format('Y-m-d'))" required />
+                            <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                        </div>
+                    </div>
 
-            <h2 class="admin-card-title" style="margin-bottom: 18px;">Informations principales</h2>
+                    {{-- Horaire et lieu --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <x-input-label for="schedule" value="Horaire" />
+                            <x-text-input id="schedule" name="schedule" class="block mt-1 w-full"
+                                          placeholder="Ex. : 9h00 – 17h00"
+                                          :value="old('schedule', $evenement->schedule)" />
+                            <x-input-error :messages="$errors->get('schedule')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="location" value="Lieu" />
+                            <x-text-input id="location" name="location" class="block mt-1 w-full"
+                                          placeholder="Ex. : Montréal, QC"
+                                          :value="old('location', $evenement->location)" />
+                            <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                        </div>
+                    </div>
 
-            <div style="margin-bottom: 18px;">
-                <label for="title" class="admin-label">
-                    Titre <span style="color: #dc2626;">*</span>
-                </label>
-                <input type="text" name="title" id="title" class="admin-input"
-                       value="{{ old('title', $evenement->title) }}" required>
+                    {{-- Description --}}
+                    <div class="mt-4">
+                        <x-input-label for="description" value="Description *" />
+                        <textarea id="description" name="description" rows="5" required
+                                  class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">{{ old('description', $evenement->description) }}</textarea>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                    </div>
+
+                    {{-- Lien externe --}}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <x-input-label for="link_url" value="Lien (Eventbrite, LinkedIn...)" />
+                            <x-text-input id="link_url" name="link_url" type="url" class="block mt-1 w-full"
+                                          placeholder="https://..."
+                                          :value="old('link_url', $evenement->link_url)" />
+                            <x-input-error :messages="$errors->get('link_url')" class="mt-2" />
+                        </div>
+                        <div>
+                            <x-input-label for="link_label" value="Texte du bouton" />
+                            <x-text-input id="link_label" name="link_label" class="block mt-1 w-full"
+                                          placeholder="Ex. : S'inscrire"
+                                          :value="old('link_label', $evenement->link_label)" />
+                            <x-input-error :messages="$errors->get('link_label')" class="mt-2" />
+                        </div>
+                    </div>
+
+                    {{-- Publication --}}
+                    <div class="mt-4">
+                        <label for="is_published" class="inline-flex items-center">
+                            <input id="is_published" name="is_published" type="checkbox" value="1"
+                                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+                                   @checked(old('is_published', $evenement->is_published))>
+                            <span class="ms-2 text-sm text-gray-700">Publié (visible sur le site)</span>
+                        </label>
+                    </div>
+
+                    {{-- Boutons --}}
+                    <div class="flex items-center justify-end mt-6">
+                        <a href="{{ route('admin.events.index') }}" class="text-sm text-gray-600 hover:underline">Annuler</a>
+                        <x-primary-button class="ms-4">Enregistrer</x-primary-button>
+                    </div>
+                </form>
             </div>
-
-            <div class="admin-form-grid" style="margin-bottom: 18px;">
-                <div>
-                    <label for="start_date" class="admin-label">
-                        Date de début <span style="color: #dc2626;">*</span>
-                    </label>
-                    <input type="date" name="start_date" id="start_date" class="admin-input"
-                           value="{{ old('start_date', $evenement->start_date->format('Y-m-d')) }}" required>
-                </div>
-
-                <div>
-                    <label for="end_date" class="admin-label">
-                        Date de fin <span style="color: #dc2626;">*</span>
-                    </label>
-                    <input type="date" name="end_date" id="end_date" class="admin-input"
-                           value="{{ old('end_date', $evenement->end_date->format('Y-m-d')) }}" required>
-                </div>
-
-                <div>
-                    <label for="schedule" class="admin-label">Horaire</label>
-                    <input type="text" name="schedule" id="schedule" class="admin-input"
-                           value="{{ old('schedule', $evenement->schedule) }}"
-                           placeholder="ex : 9h00 – 17h00">
-                </div>
-
-                <div>
-                    <label for="location" class="admin-label">Lieu</label>
-                    <input type="text" name="location" id="location" class="admin-input"
-                           value="{{ old('location', $evenement->location) }}"
-                           placeholder="ex : Montréal, QC">
-                </div>
-            </div>
-
-            <div style="margin-bottom: 24px;">
-                <label for="description" class="admin-label">
-                    Description <span style="color: #dc2626;">*</span>
-                </label>
-                <textarea name="description" id="description" class="admin-input" rows="6"
-                          required>{{ old('description', $evenement->description) }}</textarea>
-            </div>
-
-            <h2 class="admin-card-title" style="margin-bottom: 14px;">Lien externe (optionnel)</h2>
-
-            <div class="admin-form-grid" style="margin-bottom: 24px;">
-                <div>
-                    <label for="link_url" class="admin-label">URL</label>
-                    <input type="url" name="link_url" id="link_url" class="admin-input"
-                           value="{{ old('link_url', $evenement->link_url) }}"
-                           placeholder="https://...">
-                </div>
-
-                <div>
-                    <label for="link_label" class="admin-label">Libellé du bouton</label>
-                    <input type="text" name="link_label" id="link_label" class="admin-input"
-                           value="{{ old('link_label', $evenement->link_label) }}"
-                           placeholder="ex : S'inscrire">
-                </div>
-            </div>
-
-            <div style="padding: 16px 18px; border-radius: 10px;
-                        background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.2);
-                        margin-bottom: 8px;">
-                <label style="cursor: pointer; display: flex; align-items: center; gap: 10px;">
-                    <input type="checkbox" name="is_published" id="is_published" value="1"
-                           class="admin-checkbox" style="width: 17px; height: 17px;"
-                           {{ old('is_published', $evenement->is_published) ? 'checked' : '' }}>
-                    <span style="font-size: 0.92rem; font-weight: 600; color: #0f172a;">
-                        Publier cet événement
-                    </span>
-                </label>
-                <p style="margin: 6px 0 0 27px; font-size: 0.82rem; color: #64748b;">
-                    Si décoché, l'événement sera enregistré en brouillon.
-                </p>
-            </div>
-
-            <div class="admin-form-actions">
-                <button type="submit" class="admin-btn admin-btn-blue">
-                    <i class="fa-solid fa-floppy-disk" style="margin-right: 6px;"></i>
-                    Enregistrer les modifications
-                </button>
-                <a href="{{ route('admin.events.index') }}" class="admin-btn admin-btn-gray">Annuler</a>
-            </div>
-
-        </form>
+        </div>
     </div>
-
-@endsection
+</x-app-layout>

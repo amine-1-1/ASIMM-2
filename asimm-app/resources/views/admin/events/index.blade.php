@@ -1,113 +1,122 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Événements</h2>
-        <p class="mt-1 text-sm text-gray-500">Aperçu des événements à venir.</p>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Administration — Événements
+            </h2>
+            <a href="{{ route('admin.events.create') }}" class="asimm-btn-new">
+                <i class="bi bi-plus-lg"></i> Nouvel événement
+            </a>
+        </div>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    @php
+        // Mois en français : abrégés pour le bloc orange, complets pour le texte
+        $moisCourts = ['JANV', 'FÉV', 'MARS', 'AVR', 'MAI', 'JUIN', 'JUIL', 'AOÛT', 'SEPT', 'OCT', 'NOV', 'DÉC'];
+        $moisLongs = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
-            <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
-                <a href="{{ route('admin.events.create') }}" class="admin-btn admin-btn-blue">
-                    <i class="fa-solid fa-plus" style="margin-right:6px;"></i> Nouvel événement
-                </a>
-            </div>
+        // Transforme une date en texte : "28 janvier 2026" (ou "28 janvier" sans l'année)
+        $dateEnTexte = fn ($date, $avecAnnee = true) =>
+            $date->day . ' ' . $moisLongs[$date->month - 1] . ($avecAnnee ? ' ' . $date->year : '');
+    @endphp
 
+    <div class="py-12 asimm-events">
+        <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- Message de succès envoyé par le contrôleur --}}
             @if (session('success'))
-                <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:10px;padding:12px 18px;margin-bottom:20px;color:#15803d;font-size:.9rem;font-weight:500;">
-                    <i class="fa-solid fa-circle-check" style="margin-right:8px;"></i>{{ session('success') }}
-                </div>
+                <div class="mb-4 p-4 rounded bg-green-100 text-green-800">{{ session('success') }}</div>
             @endif
 
-            @if ($evenements->isEmpty())
-                <div class="admin-card" style="text-align:center;padding:48px 24px;color:#94a3b8;">
-                    <i class="fa-regular fa-calendar-xmark" style="font-size:2.5rem;margin-bottom:16px;display:block;"></i>
-                    <p style="font-size:1rem;font-weight:500;">Aucun événement disponible.</p>
-                </div>
-            @else
-                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;">
-                    @foreach ($evenements as $evenement)
-                        <div class="admin-card" style="margin-bottom:0;">
+            @forelse ($evenements as $evenement)
+                @php
+                    // Date de fin réelle (si vide, l'événement dure une seule journée)
+                    $fin = $evenement->end_date ?? $evenement->start_date;
+                    // L'événement est passé quand sa date de fin est avant aujourd'hui
+                    $estPasse = $fin->lt(today());
+                    // Plusieurs jours si la date de fin est différente de la date de début
+                    $plusieursJours = ! $fin->isSameDay($evenement->start_date);
+                @endphp
 
-                            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-                                @if ($evenement->is_published)
-                                    <span class="admin-badge admin-badge-green"><span class="admin-badge-dot"></span> Publié</span>
-                                @else
-                                    <span class="admin-badge admin-badge-yellow"><span class="admin-badge-dot"></span> Brouillon</span>
-                                @endif
-                                <div style="display:flex;gap:8px;">
-                                    <a href="{{ route('admin.events.edit', $evenement->id) }}" class="admin-btn admin-btn-gray" style="padding:6px 14px;font-size:.8rem;">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <form method="POST" action="{{ route('admin.events.destroy', $evenement->id) }}" onsubmit="return confirm('Supprimer cet événement ?')">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="admin-btn admin-btn-red" style="padding:6px 14px;font-size:.8rem;">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
+                <div class="event-item {{ $estPasse ? 'is-past' : '' }}">
+
+                    {{-- Bloc orange : jour et mois --}}
+                    <div class="event-date">
+                        <span class="day">{{ $evenement->start_date->format('d') }}</span>
+                        <span class="month">{{ $moisCourts[$evenement->start_date->month - 1] }}</span>
+                    </div>
+
+                    <div class="event-content">
+                        <div class="event-top">
+                            {{-- À venir / Passé, et Brouillon si non publié --}}
+                            <div>
+                                <span class="event-label {{ $estPasse ? 'past' : '' }}">
+                                    {{ $estPasse ? 'Passé' : 'À venir' }}
+                                </span>
+                                @unless ($evenement->is_published)
+                                    <span class="badge-draft">Brouillon</span>
+                                @endunless
                             </div>
 
-                            <h3 style="margin:0 0 14px;font-size:1.1rem;font-weight:700;color:#0f172a;line-height:1.35;">{{ $evenement->title }}</h3>
-
-                            <div style="display:grid;gap:9px;margin-bottom:16px;">
-                                <div style="display:flex;align-items:center;gap:9px;font-size:.87rem;color:#475569;">
-                                    <i class="fa-regular fa-calendar" style="color:#018880;width:16px;text-align:center;"></i>
-                                    <span>
-                                        {{ $evenement->start_date->format('d/m/Y') }}
-                                        @if (!$evenement->start_date->eq($evenement->end_date))
-                                            &rarr; {{ $evenement->end_date->format('d/m/Y') }}
-                                        @endif
-                                    </span>
-                                </div>
-                                @if ($evenement->schedule)
-                                    <div style="display:flex;align-items:center;gap:9px;font-size:.87rem;color:#475569;">
-                                        <i class="fa-regular fa-clock" style="color:#018880;width:16px;text-align:center;"></i>
-                                        <span>{{ $evenement->schedule }}</span>
-                                    </div>
-                                @endif
-                                @if ($evenement->location)
-                                    <div style="display:flex;align-items:center;gap:9px;font-size:.87rem;color:#475569;">
-                                        <i class="fa-solid fa-location-dot" style="color:#018880;width:16px;text-align:center;"></i>
-                                        <span>{{ $evenement->location }}</span>
-                                    </div>
-                                @endif
+                            {{-- Actions réservées à l'admin --}}
+                            <div class="event-actions">
+                                <a href="{{ route('admin.events.edit', $evenement->id) }}">
+                                    <i class="bi bi-pencil"></i> Modifier
+                                </a>
+                                <form method="POST" action="{{ route('admin.events.destroy', $evenement->id) }}"
+                                      onsubmit="return confirm(@js('Supprimer « '.$evenement->title.' » ?'));">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"><i class="bi bi-trash"></i> Supprimer</button>
+                                </form>
                             </div>
-
-                            <p style="font-size:.85rem;color:#64748b;margin:0 0 16px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">
-                                {{ $evenement->description }}
-                            </p>
-
-                            @if ($evenement->link_url)
-                                <div style="padding-top:14px;border-top:1px solid #e2e8f0;">
-                                    <a href="{{ $evenement->link_url }}" target="_blank" class="admin-btn admin-btn-blue" style="font-size:.82rem;padding:8px 18px;">
-                                        <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right:6px;"></i>
-                                        {{ $evenement->link_label ?? 'En savoir plus' }}
-                                    </a>
-                                </div>
-                            @endif
-
                         </div>
-                    @endforeach
-                </div>
 
-                @if ($evenements->hasPages())
-                    <div class="admin-pagination">
-                        @if ($evenements->onFirstPage())
-                            <span class="admin-btn admin-btn-gray">Précédent</span>
-                        @else
-                            <a href="{{ $evenements->previousPageUrl() }}" class="admin-btn admin-btn-gray">Précédent</a>
-                        @endif
-                        <span>Page {{ $evenements->currentPage() }} sur {{ $evenements->lastPage() }}</span>
-                        @if ($evenements->hasMorePages())
-                            <a href="{{ $evenements->nextPageUrl() }}" class="admin-btn admin-btn-gray">Suivant</a>
-                        @else
-                            <span class="admin-btn admin-btn-gray">Suivant</span>
+                        {{-- Titre --}}
+                        <h3>{{ $evenement->title }}</h3>
+
+                        {{-- Date, horaire et lieu --}}
+                        <div class="event-meta">
+                            <span>
+                                <i class="bi bi-clock"></i>
+                                @if ($plusieursJours)
+                                    {{ $dateEnTexte($evenement->start_date, $evenement->start_date->year !== $fin->year) }}
+                                    – {{ $dateEnTexte($fin) }}
+                                @else
+                                    {{ $dateEnTexte($evenement->start_date) }}
+                                @endif
+                                @if ($evenement->schedule)
+                                    ({{ $evenement->schedule }})
+                                @endif
+                            </span>
+
+                            @if ($evenement->location)
+                                <span><i class="bi bi-geo-alt"></i> {{ $evenement->location }}</span>
+                            @endif
+                        </div>
+
+                        {{-- Description (3 lignes maximum) --}}
+                        <p class="event-description">{{ $evenement->description }}</p>
+
+                        {{-- Bouton vers Eventbrite, LinkedIn... --}}
+                        @if ($evenement->link_url)
+                            <a href="{{ $evenement->link_url }}" target="_blank" rel="noopener" class="btn-event">
+                                {{ $evenement->link_label ?: 'Détails' }} <i class="bi bi-arrow-right"></i>
+                            </a>
                         @endif
                     </div>
-                @endif
-            @endif
+                </div>
+            @empty
+                <div class="events-empty">
+                    <i class="bi bi-calendar-x"></i>
+                    Aucun événement pour le moment.
+                </div>
+            @endforelse
 
+            {{-- Liens de pagination --}}
+            <div class="mt-4">
+                {{ $evenements->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
