@@ -8,8 +8,16 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->routeIs('events.calendar')) {
+        $evenements = Event::where('is_published', true)
+            ->orderBy('start_date')
+            ->get();
+            
+        return view()->file(base_path('../calendrier.html'), compact('evenements'));
+    }
+
         $evenements = Event::with('creator')
             ->orderBy('start_date', 'desc')
             ->paginate(15);
