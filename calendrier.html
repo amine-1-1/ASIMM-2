@@ -3,27 +3,40 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Calendrier - ASIMM</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-  <!-- Page servie par Laravel : images et CSS chargés depuis Live Server -->
-  <base href="http://127.0.0.1:5501/">
+<!-- Favicons -->
+<link href="assets/img/tabimg.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <link href="assets/img/tabimg.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Schema.org Organization (for Google Search logo) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ASIMM",
+  "url": "https://www.asimm.org",
+  "logo": "https://www.asimm.org/assets/img/tabimg.png"
+}
+</script>
 
-  <!-- Logo pour Google (verbatim : Blade ne lit pas ce bloc) -->
-  @verbatim
-  <script type="application/ld+json">
-  {"@context": "https://schema.org", "@type": "Organization", "name": "ASIMM", "url": "https://www.asimm.org", "logo": "https://www.asimm.org/assets/img/tabimg.png"}
-  </script>
-  @endverbatim
-
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+
 </head>
 
 <body class="calendrier-page">
@@ -33,12 +46,15 @@
 
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logoasimm.webp" alt="ASIMM">
+        
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
+          <!-- Always goes to homepage hero -->
           <li><a href="index.html">Accueil</a></li>
 
+          <!-- ASIMM -->
           <li class="dropdown">
             <a href="index.html"><span>L’ASIMM</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
@@ -49,16 +65,32 @@
             </ul>
           </li>
 
+          <!-- Activities -->
           <li class="dropdown">
-            <a href="http://127.0.0.1:8000/calendrier.html" class="active"><span>Activités</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <a href="calendrier.html" class="active"><span>Activités</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
-              <li><a href="http://127.0.0.1:8000/calendrier.html">Calendrier des événements</a></li>
+              <li><a href="calendrier.html">Calendrier des événements</a></li>
               <li><a href="index.html#services">Ateliers &amp; conférences</a></li>
+              
             </ul>
           </li>
 
+          <!-- Resources 
+          <li class="dropdown">
+            <a href="#"><span>Ressources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#">Articles</a></li>
+              <li><a href="#">Liens utiles</a></li>
+              <li><a href="#">Photos &amp; présentations</a></li>
+            </ul>
+          </li>-->
+
+          <!--<li><a href="career.html">Carrières</a></li>-->
+
+          <!-- Always go to homepage contact section -->
           <li><a href="index.html#contact">Contact</a></li>
 
+          <!-- CTA: Membership -->
           <li><a href="membership.html">Devenir membre</a></li>
         </ul>
 
@@ -70,12 +102,14 @@
 
   <main class="main">
 
+    <!-- Page Title -->
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">
         <h1 class="mb-2 mb-lg-0">Calendrier</h1>
       </div>
-    </div>
+    </div><!-- End Page Title -->
 
+    <!-- Events 2 Section -->
     <section id="events-2" class="events-2 section light-background">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -85,29 +119,8 @@
           <div class="col-lg-8">
             <div class="events-list">
 
-              <!-- Événements publiés dans l'administration (envoyés par EventController::index) -->
-              @foreach ($evenements as $evenement)
-                <div class="event-item">
-                  <div class="event-date">
-                    <span class="day">{{ $evenement->start_date->format('d') }}</span>
-                    <span class="month">{{ rtrim($evenement->start_date->locale('fr')->isoFormat('MMM'), '.') }}</span>
-                  </div>
-                  <div class="event-content">
-                    <h3>{{ $evenement->title }}</h3>
-                    <div class="event-meta">
-                      <p><i class="bi bi-clock"></i> {{ $evenement->start_date->locale('fr')->isoFormat('D MMMM YYYY') }} {{ $evenement->schedule }}</p>
-                      <p><i class="bi bi-geo-alt"></i> {{ $evenement->location }}</p>
-                    </div>
-                    <p>{{ $evenement->description }}</p>
-                    @if ($evenement->link_url)
-                      <a href="{{ $evenement->link_url }}" class="btn-event" target="_blank">{{ $evenement->link_label ?: 'Détails' }} <i class="bi bi-arrow-right"></i></a>
-                    @endif
-                  </div>
-                </div>
-              @endforeach
-
-              <!-- Événements écrits à la main -->
-              <div class="event-item is-upcoming" data-aos="fade-up">
+              <!-- Event 1 -->
+               <div class="event-item is-upcoming" data-aos="fade-up">
                 <div class="event-date">
                   <span class="day">28</span>
                   <span class="month">JANV</span>
@@ -115,20 +128,30 @@
 
                 <div class="event-content">
                   <div class="event-badge">À venir</div>
+
                   <h3>Harmonie numérique – concilier performance de l’IA et conformité des données</h3>
+
                   <div class="event-meta">
                     <p><i class="bi bi-clock"></i> 28 janvier 2026 (horaire à confirmer)</p>
                     <p><i class="bi bi-geo-alt"></i> Montréal (détails sur Eventbrite)</p>
                   </div>
+
                   <p>
                     Conférence autour de la performance des solutions IA et des exigences de conformité (gouvernance, protection
                     des données, risques et contrôles).
                   </p>
-                  <a href="https://www.eventbrite.ca/e/harmonie-numerique-concilier-performance-de-lia-et-conformite-des-donnees-tickets-1976664089502" class="btn-event" target="_blank" rel="noopener">Détails / Inscription <i class="bi bi-arrow-right"></i></a>
+
+                  <a
+                    href="https://www.eventbrite.ca/e/harmonie-numerique-concilier-performance-de-lia-et-conformite-des-donnees-tickets-1976664089502"
+                    class="btn-event"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Détails / Inscription <i class="bi bi-arrow-right"></i>
+                  </a>
                 </div>
               </div>
               <h4 class="events-section-label mt-4">Archives (évènements passés)</h4>
-
               <div class="event-item" data-aos="fade-up">
                 <div class="event-date">
                   <span class="day">02</span>
@@ -147,7 +170,9 @@
                   <a href="https://www.linkedin.com/feed/update/urn:li:activity:7400203040621903872/" class="btn-event">Détails <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
+              <!-- End Event Item -->
 
+              <!-- Event 2 -->
               <div class="event-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="event-date">
                   <span class="day">14</span>
@@ -166,7 +191,9 @@
                   <a href="index.html#contact" class="btn-event">Détails<i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
+              <!-- End Event Item -->
 
+              <!-- Event 3 -->
               <div class="event-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="event-date">
                   <span class="day">13</span>
@@ -185,7 +212,9 @@
                   <a href="https://www.linkedin.com/feed/update/urn:li:activity:7395121291508338689/" class="btn-event">Détails <i class="bi bi-arrow-right"></i></a>
                 </div>
               </div>
+              <!-- End Event Item -->
 
+              <!-- Event 4 -->
               <div class="event-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="event-date">
                   <span class="day">12</span>
@@ -204,7 +233,9 @@
                   <a class="btn-event">Événement passé </a>
                 </div>
               </div>
+              <!-- End Event Item -->
 
+              <!-- Event 5 -->
               <div class="event-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="event-date">
                   <span class="day">15</span>
@@ -223,15 +254,23 @@
                   <a class="btn-event">Événement passé </a>
                 </div>
               </div>
+              <!-- End Event Item -->
 
             </div>
 
+            <!-- OPTIONAL: remove pagination for now (cleaner for an association) -->
+            <!--
+        <div class="pagination-wrapper" data-aos="fade-up" data-aos-delay="400">
+          ...
+        </div>
+        -->
           </div>
 
           <!-- RIGHT: SIDEBAR -->
           <div class="col-lg-4">
             <div class="sidebar">
 
+              <!-- Calendar (static) -->
               <div class="sidebar-item" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="sidebar-title">Prochaines activités</h3>
 
@@ -304,6 +343,7 @@
                 </p>
               </div>
 
+              <!-- Featured -->
               <div class="sidebar-item featured-event" data-aos="fade-up" data-aos-delay="200">
                 <h3 class="sidebar-title">Évènement à la une</h3>
                 <div class="featured-event-content">
@@ -317,6 +357,7 @@
                 </div>
               </div>
 
+              <!-- Categories -->
               <div class="sidebar-item" data-aos="fade-up" data-aos-delay="300">
                 <h3 class="sidebar-title">Types d’activités</h3>
                 <div class="categories">
@@ -329,6 +370,7 @@
                 </div>
               </div>
 
+              <!-- CTA -->
               <div class="sidebar-item" data-aos="fade-up" data-aos-delay="400">
                 <h3 class="sidebar-title">Rester informé</h3>
                 <p class="mb-3">
@@ -342,15 +384,16 @@
         </div>
 
       </div>
-    </section>
+    </section><!-- /Events 2 Section -->
 
   </main>
 
-  <footer id="footer" class="footer dark-background">
+   <footer id="footer" class="footer dark-background">
 
   <div class="container">
     <div class="row gy-3">
 
+      <!-- Adresse -->
       <div class="col-lg-3 col-md-6 d-flex">
         <i class="bi bi-geo-alt icon"></i>
         <div class="address">
@@ -360,6 +403,7 @@
         </div>
       </div>
 
+      <!-- Contact -->
       <div class="col-lg-3 col-md-6 d-flex">
         <i class="bi bi-envelope icon"></i>
         <div>
@@ -373,19 +417,21 @@
         </div>
       </div>
 
+      <!-- Infos pratiques -->
       <div class="col-lg-3 col-md-6 d-flex">
         <i class="bi bi-calendar-event icon"></i>
         <div>
           <h4>Activités</h4>
           <p>
             <strong>Calendrier :</strong>
-            <a href="http://127.0.0.1:8000/calendrier.html">Voir les événements</a><br>
+            <a href="calendrier.html">Voir les événements</a><br>
             <strong>Adhésion :</strong>
             <a href="membership.html">Devenir membre</a>
           </p>
         </div>
       </div>
 
+      <!-- Réseaux sociaux -->
       <div class="col-lg-3 col-md-6">
         <h4>Nous suivre</h4>
         <div class="social-links d-flex">
@@ -404,12 +450,19 @@
 
 </footer>
 
+  <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

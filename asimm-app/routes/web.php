@@ -5,13 +5,15 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/calendrier.html', [EventController::class, 'index'])->name('events.calendar');
 
 // Pages des membres connectés
 Route::middleware('auth')->group(function () {
-
+    // Tableau de bord
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Profil
     Route::redirect('/','/admin/events');
-    Route::redirect('/dashbord','/admin/events')->name('dashboard');
+    Route::redirect('/dasbord','/admin/events')->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -46,7 +48,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::put('/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
     });
-
 });
 
 require __DIR__.'/auth.php';
