@@ -8,47 +8,26 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    // Liste admin (GET /admin/events) ou page publique (GET /calendrier.html) : même méthode, deux routes
     public function index(Request $request)
     {
         if ($request->routeIs('events.calendar')) {
-        $evenements = Event::where('is_published', true)
-            ->orderBy('start_date')
-            ->get();
-            
-        return view()->file(base_path('../calendrier.html'), compact('evenements'));
-    }
+            return $this->calendar($request);
+        }
 
-        $evenements = Event::with('creator')
-            ->orderBy('start_date', 'desc')
-            ->paginate(15);
+        $evenements = Event::with('creator')->orderBy('start_date', 'desc')->paginate(15);
 
         return view('admin.events.index', compact('evenements'));
     }
 
     public function create()
     {
-        $evenement = null;
-        return view('admin.events.create', compact('evenement'));
+        return view('admin.events.create');
     }
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'title'        => 'required|string|max:255',
-            'start_date'   => 'required|date',
-            'end_date'     => 'required|date|after_or_equal:start_date',
-            'schedule'     => 'nullable|string|max:255',
-            'location'     => 'nullable|string|max:255',
-            'description'  => 'required|string',
-            'link_url'     => 'nullable|url|max:255',
-            'link_label'   => 'nullable|string|max:255',
-            'is_published' => 'boolean',
-        ]);
-
-        $validatedData['created_by'] = auth()->id();
-        $validatedData['is_published'] = $request->boolean('is_published');
-
-        Event::create($validatedData);
+        Event::create($this->donneesValidees($request) + ['created_by' => auth()->id()]);
 
         return redirect()->route('admin.events.create')->with('success', 'Événement créé avec succès.');
     }
@@ -56,18 +35,35 @@ class EventController extends Controller
     public function show($id)
     {
         $evenement = Event::with('creator')->findOrFail($id);
+
         return view('admin.events.show', compact('evenement'));
     }
 
     public function edit($id)
     {
         $evenement = Event::findOrFail($id);
+
         return view('admin.events.edit', compact('evenement'));
     }
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        Event::findOrFail($id)->update($this->donneesValidees($request));
+
+        return redirect()->route('admin.events.index')->with('success', 'Événement mis à jour avec succès.');
+    }
+
+    public function destroy($id)
+    {
+        Event::findOrFail($id)->delete();
+
+        return redirect()->route('admin.events.index')->with('success', 'Événement supprimé avec succès.');
+    }
+
+    // Règles du formulaire, communes à la création et à la modification
+    private function donneesValidees(Request $request): array
+    {
+        $donnees = $request->validate([
             'title'        => 'required|string|max:255',
             'start_date'   => 'required|date',
             'end_date'     => 'required|date|after_or_equal:start_date',
@@ -79,36 +75,61 @@ class EventController extends Controller
             'is_published' => 'boolean',
         ]);
 
-        $validatedData['is_published'] = $request->boolean('is_published');
+        // Case à cocher : absente du formulaire quand elle est décochée
+        $donnees['is_published'] = $request->boolean('is_published');
 
-        $evenement = Event::findOrFail($id);
-        $evenement->update($validatedData);
-
-        return redirect()->route('admin.events.index')->with('success', 'Événement mis à jour avec succès.');
+        return $donnees;
     }
 
-    public function destroy($id)
+    private function calendar(Request $request)
     {
-        $evenement = Event::findOrFail($id);
-        $evenement->delete();
+        $evenements = Event::where('is_published', true)->orderBy('start_date')->get();
+        $jourChoisi = $request->date('jour');
+        $calendrier = $this->calendrier($evenements, $jourChoisi);
 
-        return redirect()->route('admin.events.index')->with('success', 'Événement supprimé avec succès.');
+        if ($jourChoisi) {
+            $evenements = $evenements->filter(fn ($e) => $e->start_date->isSameDay($jourChoisi));
+        }
+
+        return view()->file(base_path('../calendrier.html'), compact('evenements', 'calendrier', 'jourChoisi'));
     }
-    private function calendrier($evenements): array
-    {
-        $prochain = $evenements->first(fn ($e) => $e->end_date->gte(today()));
-        $mois = ($prochain?->start_date ?? today())->copy()->startOfMonth();
 
-        $debut = $mois->copy()->startOfWeek(0);
-        $fin = $mois->copy()->endOfMonth()->endOfWeek(6);
+    private function calendrier($evenements, $jourChoisi = null): array
+    {
+        $mois = today();
+
+        foreach ($evenements as $evenement) {
+            if ($evenement->end_date >= today()) {
+                $mois = $evenement->start_date;
+                break;
+            }
+        }
+
+        if ($jourChoisi) {
+            $mois = $jourChoisi;
+        }
+
+        $mois = $mois->copy()->startOfMonth();
+
+        $premierJour = $mois->copy()->startOfWeek();
+        $dernierJour = $mois->copy()->endOfMonth()->endOfWeek();
+
 
         $jours = [];
-        foreach ($debut->daysUntil($fin) as $jour) {
-            $jours[] = [
-                'date'      => $jour,
+        $jour = $premierJour;
 
-                'evenement' => $evenements->first(fn ($e) => $e->start_date->isSameDay($jour)),
-            ];
+        while ($jour <= $dernierJour) {
+            $evenementDuJour = null;
+
+            foreach ($evenements as $evenement) {
+                if ($evenement->start_date->isSameDay($jour)) {
+                    $evenementDuJour = $evenement;
+                    break;
+                }
+            }
+
+            $jours[] = [$jour->copy(), $evenementDuJour];
+            $jour->addDay();
         }
 
         return ['mois' => $mois, 'jours' => $jours];

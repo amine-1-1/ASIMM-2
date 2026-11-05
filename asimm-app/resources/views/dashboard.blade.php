@@ -54,11 +54,11 @@
 
                                 <div class="ev-meta">
                                     <span>
-                                        <i class="bi bi-clock"></i>
+                                        <svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.75"></circle><path d="M8 4v4l2.5 1.5"></path></svg>
                                         {{ $dateTexte }}@if ($evenement->schedule) ({{ $evenement->schedule }})@endif
                                     </span>
                                     @if ($evenement->location)
-                                        <span><i class="bi bi-geo-alt"></i> {{ $evenement->location }}</span>
+                                        <span><svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 6.5c0 4-5 8-5 8s-5-4-5-8a5 5 0 1 1 10 0Z"></path><circle cx="8" cy="6.5" r="1.75"></circle></svg> {{ $evenement->location }}</span>
                                     @endif
                                 </div>
 
@@ -67,7 +67,7 @@
 
                                 @if ($evenement->link_url)
                                     <a href="{{ $evenement->link_url }}" class="ev-link" target="_blank" rel="noopener">
-                                        {{ $evenement->link_label ?: 'Détails / Inscription' }} <i class="bi bi-arrow-right"></i>
+                                        {{ $evenement->link_label ?: 'Détails / Inscription' }} <svg class="event-icon event-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8 3l5 5-5 5"></path></svg>
                                     </a>
                                 @endif
                             </div>

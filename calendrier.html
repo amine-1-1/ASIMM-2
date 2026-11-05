@@ -85,9 +85,20 @@
           <div class="col-lg-8">
             <div class="events-list">
 
+              {{-- Un jour a été cliqué dans le calendrier : titre + lien pour revenir à tout --}}
+              @if ($jourChoisi)
+                <h4 class="events-section-label">
+                  Événements du {{ $jourChoisi->locale('fr')->isoFormat('D MMMM YYYY') }}
+                  — <a href="{{ route('events.calendar') }}">Tous les événements</a>
+                </h4>
+                @if ($evenements->isEmpty())
+                  <p>Aucun événement ce jour-là.</p>
+                @endif
+              @endif
+
               <!-- Événements publiés dans l'administration (envoyés par EventController::index) -->
               @foreach ($evenements as $evenement)
-                <div class="event-item">
+                <div class="event-item" id="evenement-{{ $evenement->id }}">
                   <div class="event-date">
                     <span class="day">{{ $evenement->start_date->format('d') }}</span>
                     <span class="month">{{ rtrim($evenement->start_date->locale('fr')->isoFormat('MMM'), '.') }}</span>
@@ -95,134 +106,16 @@
                   <div class="event-content">
                     <h3>{{ $evenement->title }}</h3>
                     <div class="event-meta">
-                      <p><i class="bi bi-clock"></i> {{ $evenement->start_date->locale('fr')->isoFormat('D MMMM YYYY') }} {{ $evenement->schedule }}</p>
-                      <p><i class="bi bi-geo-alt"></i> {{ $evenement->location }}</p>
+                      <p><svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.75"></circle><path d="M8 4v4l2.5 1.5"></path></svg> {{ $evenement->start_date->locale('fr')->isoFormat('D MMMM YYYY') }} {{ $evenement->schedule }}</p>
+                      <p><svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 6.5c0 4-5 8-5 8s-5-4-5-8a5 5 0 1 1 10 0Z"></path><circle cx="8" cy="6.5" r="1.75"></circle></svg> {{ $evenement->location }}</p>
                     </div>
                     <p>{{ $evenement->description }}</p>
                     @if ($evenement->link_url)
-                      <a href="{{ $evenement->link_url }}" class="btn-event" target="_blank">{{ $evenement->link_label ?: 'Détails' }} <i class="bi bi-arrow-right"></i></a>
+                      <a href="{{ $evenement->link_url }}" class="btn-event" target="_blank">{{ $evenement->link_label ?: 'Détails' }} <svg class="event-icon event-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8 3l5 5-5 5"></path></svg></a>
                     @endif
                   </div>
                 </div>
               @endforeach
-
-              <!-- Événements écrits à la main -->
-              <div class="event-item is-upcoming" data-aos="fade-up">
-                <div class="event-date">
-                  <span class="day">28</span>
-                  <span class="month">JANV</span>
-                </div>
-
-                <div class="event-content">
-                  <div class="event-badge">À venir</div>
-                  <h3>Harmonie numérique – concilier performance de l’IA et conformité des données</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 28 janvier 2026 (horaire à confirmer)</p>
-                    <p><i class="bi bi-geo-alt"></i> Montréal (détails sur Eventbrite)</p>
-                  </div>
-                  <p>
-                    Conférence autour de la performance des solutions IA et des exigences de conformité (gouvernance, protection
-                    des données, risques et contrôles).
-                  </p>
-                  <a href="https://www.eventbrite.ca/e/harmonie-numerique-concilier-performance-de-lia-et-conformite-des-donnees-tickets-1976664089502" class="btn-event" target="_blank" rel="noopener">Détails / Inscription <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-              <h4 class="events-section-label mt-4">Archives (évènements passés)</h4>
-
-              <div class="event-item" data-aos="fade-up">
-                <div class="event-date">
-                  <span class="day">02</span>
-                  <span class="month">DÉC</span>
-                </div>
-                <div class="event-content">
-                  <h3>SEENE Workshop – IA générative &amp; défense nationale</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 2–4 décembre (atelier international, 3 jours)</p>
-                    <p><i class="bi bi-geo-alt"></i> ÉTS Montréal</p>
-                  </div>
-                  <p>
-                    Atelier international réunissant chercheurs, industriels et praticiens. Thématique 2025 :
-                    <strong>GenAI in National Defence</strong>. ASIMM partage l’annonce et soutient la visibilité de l’évènement.
-                  </p>
-                  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7400203040621903872/" class="btn-event">Détails <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-
-              <div class="event-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="event-date">
-                  <span class="day">14</span>
-                  <span class="month">OCT</span>
-                </div>
-                <div class="event-content">
-                  <h3>INCYBER Forum – Canada (édition 2025)</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 14–15 octobre</p>
-                    <p><i class="bi bi-geo-alt"></i> Montréal, QC</p>
-                  </div>
-                  <p>
-                    Évènement majeur du secteur cyber au Canada. Une occasion de networking, de veille et d’échanges
-                    sur les enjeux opérationnels et stratégiques en cybersécurité.
-                  </p>
-                  <a href="index.html#contact" class="btn-event">Détails<i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-
-              <div class="event-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="event-date">
-                  <span class="day">13</span>
-                  <span class="month">NOV</span>
-                </div>
-                <div class="event-content">
-                  <h3>Panel – Accréditations défense (CMMC / CPCSC) &amp; conformité</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> Soirée (horaire communiqué via l’invitation)</p>
-                    <p><i class="bi bi-geo-alt"></i> Club St-James, Montréal</p>
-                  </div>
-                  <p>
-                    Rencontre autour des accréditations applicables au secteur de la défense (ex. <strong>CMMC</strong>, <strong>CPCSC</strong>)
-                    et de leurs impacts business. Discussions sur le contexte réglementaire et le parcours de certification.
-                  </p>
-                  <a href="https://www.linkedin.com/feed/update/urn:li:activity:7395121291508338689/" class="btn-event">Détails <i class="bi bi-arrow-right"></i></a>
-                </div>
-              </div>
-
-              <div class="event-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="event-date">
-                  <span class="day">12</span>
-                  <span class="month">MAR</span>
-                </div>
-                <div class="event-content">
-                  <h3>Déjeuner-causerie – Ingénierie sociale à l’ère de l’IA</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> Matinée (café &amp; viennoiseries)</p>
-                    <p><i class="bi bi-geo-alt"></i> Cybereco, Montréal</p>
-                  </div>
-                  <p>
-                    Déjeuner-causerie animé par <strong>Philippe Chevalier</strong> sur la menace d’ingénierie sociale,
-                    son évolution avec l’IA, et les pratiques concrètes de sensibilisation et de réduction du risque.
-                  </p>
-                  <a class="btn-event">Événement passé </a>
-                </div>
-              </div>
-
-              <div class="event-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="event-date">
-                  <span class="day">15</span>
-                  <span class="month">FÉV</span>
-                </div>
-                <div class="event-content">
-                  <h3>Midi-conférence – IMC2 : levier d’innovation &amp; entrepreneuriat d’impact</h3>
-                  <div class="event-meta">
-                    <p><i class="bi bi-clock"></i> 12:00 – 13:00</p>
-                    <p><i class="bi bi-geo-alt"></i> 355 rue Peel (Suites 203–208), Montréal</p>
-                  </div>
-                  <p>
-                    Conférence ASIMM sur l’<strong>IMC2</strong>, ses initiatives et son rôle comme catalyseur
-                    d’innovation et d’entrepreneuriat d’impact, en lien avec l’écosystème cyber.
-                  </p>
-                  <a class="btn-event">Événement passé </a>
-                </div>
-              </div>
 
             </div>
 
@@ -237,64 +130,27 @@
 
                 <div class="event-calendar">
                   <div class="calendar-header">
-                    <h4>Janvier 2026</h4>
+                    <h4>{{ ucfirst($calendrier['mois']->locale('fr')->isoFormat('MMMM YYYY')) }}</h4>
                   </div>
                   <div class="calendar-body">
                     <div class="weekdays">
-                      <div>Di</div>
                       <div>Lu</div>
                       <div>Ma</div>
                       <div>Me</div>
                       <div>Je</div>
                       <div>Ve</div>
                       <div>Sa</div>
+                      <div>Di</div>
                     </div>
 
                     <div class="days">
-                      <!-- Week 1 -->
-                      <div class="day other-month">30</div>
-                      <div class="day">1</div>
-                      <div class="day">2</div>
-                      <div class="day">3</div>
-                      <div class="day">4</div>
-                      <div class="day">5</div>
-                      <div class="day">6</div>
-
-                      <!-- Week 2 -->
-                      <div class="day">7</div>
-                      <div class="day">8</div>
-                      <div class="day">9</div>
-                      <div class="day">10</div>
-                      <div class="day">11</div>
-                      <div class="day">12</div>
-                      <div class="day">13</div>
-
-                      <!-- Week 3 -->
-                      <div class="day">14</div>
-                      <div class="day">15</div>
-                      <div class="day">16</div>
-                      <div class="day">17</div>
-                      <div class="day">18</div>
-                      <div class="day">19</div>
-                      <div class="day">20</div>
-
-                      <!-- Week 4 -->
-                      <div class="day">21</div>
-                      <div class="day">22</div>
-                      <div class="day">23</div>
-                      <div class="day">24</div>
-                      <div class="day">25</div>
-                      <div class="day">26</div>
-                      <div class="day">27</div>
-
-                      <!-- Week 5 -->
-                      <div class="day has-event">28</div>
-                      <div class="day">29</div>
-                      <div class="day">30</div>
-                      <div class="day">31</div>
-                      <div class="day other-month">1</div>
-                      <div class="day other-month">2</div>
-                      <div class="day other-month">3</div>
+                      {{-- Chaque chiffre est un lien ?jour=AAAA-MM-JJ : la page se recharge avec
+                           les événements de ce jour. Orange = un événement commence ce jour-là. --}}
+                      @foreach ($calendrier['jours'] as [$date, $evenement])
+                        <a href="{{ route('events.calendar', ['jour' => $date->format('Y-m-d')]) }}"
+                           class="day {{ $evenement ? 'has-event' : '' }} {{ $date->month == $calendrier['mois']->month ? '' : 'other-month' }} {{ isset($jourChoisi) && $jourChoisi->isSameDay($date) ? 'is-selected' : '' }}"
+                           title="{{ $evenement?->title }}">{{ $date->day }}</a>
+                      @endforeach
                     </div>
                   </div>
                 </div>
@@ -352,7 +208,7 @@
     <div class="row gy-3">
 
       <div class="col-lg-3 col-md-6 d-flex">
-        <i class="bi bi-geo-alt icon"></i>
+        <svg class="icon footer-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
         <div class="address">
           <h4>Adresse</h4>
           <p>355 Rue Peel, Suites 203-208</p>
@@ -361,7 +217,7 @@
       </div>
 
       <div class="col-lg-3 col-md-6 d-flex">
-        <i class="bi bi-envelope icon"></i>
+        <svg class="icon footer-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m4 7 8 6 8-6"></path></svg>
         <div>
           <h4>Contact</h4>
           <p>
@@ -374,7 +230,7 @@
       </div>
 
       <div class="col-lg-3 col-md-6 d-flex">
-        <i class="bi bi-calendar-event icon"></i>
+        <svg class="icon footer-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M7 3v4m10-4v4M3 10h18"></path><path d="M8 14h2m4 0h2m-8 3h2"></path></svg>
         <div>
           <h4>Activités</h4>
           <p>
@@ -390,7 +246,7 @@
         <h4>Nous suivre</h4>
         <div class="social-links d-flex">
           <a href="https://ca.linkedin.com/company/asimm" class="linkedin" target="_blank" rel="noopener" aria-label="LinkedIn ASIMM">
-            <i class="bi bi-linkedin"></i>
+            <svg class="social-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146ZM4.943 13.394V6.169H2.542v7.225h2.401ZM3.743 5.18c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.358.54-1.358 1.248 0 .694.52 1.248 1.327 1.248h.015Zm4.908 8.214V9.359c0-.216.016-.432.08-.586.173-.432.568-.879 1.23-.879.869 0 1.217.663 1.217 1.635v3.865h2.4V9.25c0-2.22-1.185-3.253-2.767-3.253-1.274 0-1.845.7-2.16 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4Z"></path></svg>
           </a>
         </div>
       </div>
@@ -404,7 +260,7 @@
 
 </footer>
 
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" aria-label="Retour en haut"><svg class="scroll-top-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"></path></svg></a>
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>

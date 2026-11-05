@@ -78,7 +78,7 @@
                         {{-- Date, horaire et lieu --}}
                         <div class="event-meta">
                             <span>
-                                <i class="bi bi-clock"></i>
+                                <svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.75"></circle><path d="M8 4v4l2.5 1.5"></path></svg>
                                 @if ($plusieursJours)
                                     {{ $dateEnTexte($evenement->start_date, $evenement->start_date->year !== $fin->year) }}
                                     – {{ $dateEnTexte($fin) }}
@@ -91,7 +91,7 @@
                             </span>
 
                             @if ($evenement->location)
-                                <span><i class="bi bi-geo-alt"></i> {{ $evenement->location }}</span>
+                                <span><svg class="event-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13 6.5c0 4-5 8-5 8s-5-4-5-8a5 5 0 1 1 10 0Z"></path><circle cx="8" cy="6.5" r="1.75"></circle></svg> {{ $evenement->location }}</span>
                             @endif
                         </div>
 
@@ -101,7 +101,7 @@
                         {{-- Bouton vers Eventbrite, LinkedIn... --}}
                         @if ($evenement->link_url)
                             <a href="{{ $evenement->link_url }}" target="_blank" rel="noopener" class="btn-event">
-                                {{ $evenement->link_label ?: 'Détails' }} <i class="bi bi-arrow-right"></i>
+                                {{ $evenement->link_label ?: 'Détails' }} <svg class="event-icon event-icon-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M8 3l5 5-5 5"></path></svg>
                             </a>
                         @endif
                     </div>

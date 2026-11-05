@@ -121,6 +121,21 @@
 .asimm-events .event-meta i {
     margin-right: 0.35rem;
 }
+.asimm-events .event-meta .event-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    fill: none;
+    stroke: var(--accent-color);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    margin: 0.1rem 0.35rem 0 0;
+}
+.asimm-events .event-meta span {
+    display: inline-flex;
+    align-items: flex-start;
+}
 
 /* Description limitée à 3 lignes */
 .asimm-events .event-description {
@@ -147,6 +162,60 @@
 }
 .asimm-events .btn-event:hover i {
     transform: translateX(5px);
+}
+.asimm-events .btn-event .event-icon-arrow {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+.asimm-events .btn-event:hover .event-icon-arrow {
+    transform: translateX(5px);
+}
+
+.event-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.ev-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+}
+.ev-meta > span {
+    display: inline-flex;
+    align-items: flex-start;
+}
+.ev-meta .event-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 1rem;
+    fill: none;
+    stroke: #f85d23;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    margin: 0.1rem 0.35rem 0 0;
+}
+.ev-link {
+    display: inline-flex;
+    align-items: center;
+}
+.ev-link .event-icon-arrow {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    margin-left: 0.5rem;
 }
 
 /* Actions admin (Modifier / Supprimer) */

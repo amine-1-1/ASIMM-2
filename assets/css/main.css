@@ -226,6 +226,10 @@ h6 {
     transition: 0.3s;
   }
 
+  .navmenu>ul>li>a>.toggle-dropdown {
+    display: none;
+  }
+
   .navmenu>ul>li>a:before {
     content: "";
     position: absolute;
@@ -449,8 +453,20 @@ h6 {
 .footer .icon {
   color: var(--accent-color);
   margin-right: 15px;
-  font-size: 24px;
-  line-height: 0;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.footer .social-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
 }
 
 .footer h4 {
@@ -491,6 +507,21 @@ h6 {
   margin-bottom: 0;
 }
 
+.footer .copyright .privacy-link {
+  margin-top: 8px;
+}
+
+.footer .copyright .privacy-link a {
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer .copyright .privacy-link a:hover,
+.footer .copyright .privacy-link a:focus-visible {
+  color: var(--accent-color);
+}
+
 .footer .credits {
   margin-top: 5px;
   font-size: 13px;
@@ -512,10 +543,14 @@ h6 {
   transition: all 0.4s;
 }
 
-.scroll-top i {
-  font-size: 24px;
-  color: var(--contrast-color);
-  line-height: 0;
+.scroll-top-icon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: var(--contrast-color);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .scroll-top:hover {
@@ -2235,10 +2270,28 @@ section,
 }
 
 .events-2 .events-list .event-item .event-content .event-meta i {
-  margin-right: 0.25rem;
+  flex: 0 0 auto;
+  color: var(--accent-color);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-right: 0.35rem;
+}
+
+.events-2 .events-list .event-item .event-content .event-meta .event-icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  fill: none;
+  stroke: var(--accent-color);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  margin: 0.2rem 0.35rem 0 0;
 }
 
 .events-2 .events-list .event-item .event-content .event-meta p {
+  display: flex;
+  align-items: flex-start;
   margin: 0;
 }
 
@@ -2255,6 +2308,19 @@ section,
 }
 
 .events-2 .events-list .event-item .event-content .btn-event i {
+  color: var(--accent-color);
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.events-2 .events-list .event-item .event-content .btn-event .event-icon-arrow {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
   margin-left: 0.5rem;
   transition: transform 0.3s ease;
 }
@@ -2263,7 +2329,7 @@ section,
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
 }
 
-.events-2 .events-list .event-item .event-content .btn-event:hover i {
+.events-2 .events-list .event-item .event-content .btn-event:hover .event-icon-arrow {
   transform: translateX(5px);
 }
 
@@ -2487,6 +2553,17 @@ section,
 .events-2 .sidebar .event-calendar .calendar-body .days .day.other-month {
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   cursor: default;
+}
+
+/* Chiffres du calendrier devenus des liens : garder la couleur du texte */
+.events-2 .sidebar .event-calendar .calendar-body .days a.day:not(.has-event) {
+  color: inherit;
+}
+
+/* Jour cliqué : entouré d'orange */
+.events-2 .sidebar .event-calendar .calendar-body .days .day.is-selected {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
 
 /*--------------------------------------------------------------
