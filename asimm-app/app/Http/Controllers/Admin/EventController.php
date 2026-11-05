@@ -94,4 +94,23 @@ class EventController extends Controller
 
         return redirect()->route('admin.events.index')->with('success', 'Événement supprimé avec succès.');
     }
+    private function calendrier($evenements): array
+    {
+        $prochain = $evenements->first(fn ($e) => $e->end_date->gte(today()));
+        $mois = ($prochain?->start_date ?? today())->copy()->startOfMonth();
+
+        $debut = $mois->copy()->startOfWeek(0);
+        $fin = $mois->copy()->endOfMonth()->endOfWeek(6);
+
+        $jours = [];
+        foreach ($debut->daysUntil($fin) as $jour) {
+            $jours[] = [
+                'date'      => $jour,
+
+                'evenement' => $evenements->first(fn ($e) => $e->start_date->isSameDay($jour)),
+            ];
+        }
+
+        return ['mois' => $mois, 'jours' => $jours];
+    }
 }
