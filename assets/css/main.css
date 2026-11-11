@@ -3148,7 +3148,7 @@ section,
   color: var(--heading-color);
   font-weight: 800;
   line-height: 1;
-  display: none;
+  display: inline-flex;
 }
 
 .pricing .price-card .card-head .price-wrap .price sup {
