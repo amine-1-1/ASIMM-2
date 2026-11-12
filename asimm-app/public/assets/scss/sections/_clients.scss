@@ -1,0 +1,168 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Clients Section
+--------------------------------------------------------------*/
+.clients {
+  overflow-x: hidden;
+  padding: 40px 0;
+
+  .clients-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 0;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  .clients-track {
+    display: flex;
+    width: fit-content;
+    animation-duration: 30s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    &.track-1 {
+      animation-name: scroll-left;
+    }
+
+    &.track-2 {
+      animation-name: scroll-right;
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+  .clients-slide {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 100px;
+    margin: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          color-mix(in srgb, var(--default-color), transparent 96%),
+          transparent);
+      transition: 0.5s;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+
+      &::before {
+        left: 100%;
+      }
+
+      img {
+        filter: none;
+        opacity: 1;
+      }
+    }
+
+    img {
+      max-width: 80%;
+      max-height: 60%;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(calc(-200px * 8 - 60px * 8));
+    }
+  }
+
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(calc(-200px * 8 - 60px * 8));
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 991px) {
+    .clients-slide {
+      width: 180px;
+      height: 90px;
+      margin: 0 20px;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-180px * 8 - 40px * 8));
+      }
+    }
+
+    @keyframes scroll-right {
+      0% {
+        transform: translateX(calc(-180px * 8 - 40px * 8));
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    .clients-slide {
+      width: 150px;
+      height: 75px;
+      margin: 0 15px;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(calc(-150px * 8 - 30px * 8));
+      }
+    }
+
+    @keyframes scroll-right {
+      0% {
+        transform: translateX(calc(-150px * 8 - 30px * 8));
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+  }
+}

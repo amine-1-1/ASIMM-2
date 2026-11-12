@@ -64,14 +64,14 @@ class EventController extends Controller
     private function donneesValidees(Request $request): array
     {
         $donnees = $request->validate([
-            'title'        => 'required|string|max:255',
-            'start_date'   => 'required|date',
-            'end_date'     => 'required|date|after_or_equal:start_date',
-            'schedule'     => 'nullable|string|max:255',
-            'location'     => 'nullable|string|max:255',
-            'description'  => 'required|string',
-            'link_url'     => 'nullable|url|max:255',
-            'link_label'   => 'nullable|string|max:255',
+            'title' => 'required|string|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'schedule' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'description' => 'required|string',
+            'link_url' => 'nullable|url|max:255',
+            'link_label' => 'nullable|string|max:255',
             'is_published' => 'boolean',
         ]);
 
@@ -91,7 +91,7 @@ class EventController extends Controller
             $evenements = $evenements->filter(fn ($e) => $e->start_date->isSameDay($jourChoisi));
         }
 
-        return view()->file(base_path('../calendrier.html'), compact('evenements', 'calendrier', 'jourChoisi'));
+        return view('events.calendar', compact('evenements', 'calendrier', 'jourChoisi'));
     }
 
     private function calendrier($evenements, $jourChoisi = null): array
@@ -113,7 +113,6 @@ class EventController extends Controller
 
         $premierJour = $mois->copy()->startOfWeek();
         $dernierJour = $mois->copy()->endOfMonth()->endOfWeek();
-
 
         $jours = [];
         $jour = $premierJour;

@@ -1,0 +1,144 @@
+// main: ../main.scss
+/*--------------------------------------------------------------
+# Stats Section
+--------------------------------------------------------------*/
+.stats {
+  .stats-overview {
+    height: 100%;
+    padding: 30px;
+
+    h3 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 15px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 60px;
+        height: 4px;
+        background: var(--accent-color);
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+
+        @media (min-width: 992px) {
+          margin: 0;
+        }
+      }
+    }
+
+    p {
+      font-size: 16px;
+      color: color-mix(in srgb, var(--default-color), transparent 30%);
+      line-height: 1.7;
+      margin-bottom: 0;
+    }
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .stats-card {
+    background: var(--surface-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: color-mix(in srgb, var(--accent-color), transparent 90%);
+      border-radius: 50%;
+      margin-right: 15px;
+      flex-shrink: 0;
+
+      i {
+        font-size: 24px;
+        color: var(--accent-color);
+      }
+    }
+
+    .stats-content {
+      flex-grow: 1;
+
+      .stats-number {
+        display: flex;
+        align-items: baseline;
+
+        .purecounter {
+          font-size: 32px;
+          font-weight: 700;
+          color: var(--heading-color);
+          margin: 0;
+          line-height: 1;
+        }
+
+        .plus {
+          font-size: 24px;
+          font-weight: 700;
+          color: var(--accent-color);
+          margin-left: 2px;
+        }
+      }
+
+      p {
+        font-size: 14px;
+        color: color-mix(in srgb, var(--default-color), transparent 40%);
+        margin: 5px 0 0;
+        font-weight: 500;
+        font-family: var(--heading-font);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .stats-card {
+      padding: 15px;
+
+      .stats-icon {
+        width: 50px;
+        height: 50px;
+
+        i {
+          font-size: 20px;
+        }
+      }
+
+      .stats-content {
+        .stats-number {
+          .purecounter {
+            font-size: 28px;
+          }
+
+          .plus {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
